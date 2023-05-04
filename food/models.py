@@ -12,11 +12,14 @@ class Item(models.Model):   # class Item is 'inherited' from class 'Model' --> i
     item_name = models.CharField(max_length=200)
     item_desc = models.CharField(max_length=200)
     item_price = models.IntegerField(default=0)
-    item_image = models.CharField(max_length=500, default="https://media4.giphy.com/media/26BRqPg05olzXG1bi/giphy.gif?cid=ecf05e47w7pu1wqd50xlfonrwvc45iat93zr1jlcmg39ft43&ep=v1_gifs_search&rid=giphy.gif&ct=g")
+    # item_image = models.CharField(max_length=500, default="https://media4.giphy.com/media/26BRqPg05olzXG1bi/giphy.gif?cid=ecf05e47w7pu1wqd50xlfonrwvc45iat93zr1jlcmg39ft43&ep=v1_gifs_search&rid=giphy.gif&ct=g")
+    image = models.ImageField(default='empty-box.gif', upload_to='posts')
 
 
     def get_absolute_url(self):
         return reverse('food:detail', kwargs={'pk': self.pk}) # here we are returning the url of the detail page of the item which we have created in urls.py of food app and kwargs={'pk': self.pk} means that the primary key of the item will be passed in the url
+    
+    
     
 
     # this will create a table with columns name, desc, price, etc and for that we need to add this food app in 'installed apps' section of settings.py and then migrate 

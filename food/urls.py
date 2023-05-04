@@ -11,7 +11,7 @@ urlpatterns = [
     path('item1/', views.item1, name='item1'),
     path('item2/', views.item2, name='item2'),
     #/food/add # this is the url which we have to hit to add a new item
-    path('add/', views.CreateItem.as_view(), name='create_item'),
+    path('add/', views.create_item, name='create_item'),
     path('update/<int:id>/', views.update_item, name='update_item'), # this is the url which we have to hit to update an item ... here id is the primary key of the item which we want to update
     path('delete/<int:id>/', views.delete_item, name='delete_item'), # this is the url which we have to hit to delete an item ... here id is the primary key of the item which we want to delete
 ]

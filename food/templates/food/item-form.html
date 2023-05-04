@@ -13,15 +13,18 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <!-- {{ form.as_p }} -->
                             {%for field in form%}
                             <div class="form-group text-center" style="margin: 15px;">
-                                <b>{{field.label}}<b>   
+                                <b>{{field.label.title}}<b>   
                                 <br>
-                                {{field}}
+                                <span>{{field}}</span>
                             </div>
                             {%endfor%}
+                            <!-- <br><br><br> -->
+                            <article class="text-center" style="color: black; margin-bottom: 30px; margin-top: 30px;">Fun Fact: You can also upload GIFs while selecting the image...</article>
                         <div class="text-center">
                             <button class="btn btn-success" type="submit">Save</button> 
                         </div>

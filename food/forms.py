@@ -7,8 +7,9 @@ class ItemForm(forms.ModelForm):  # this is a class which is inheriting from for
         fields = [         # these are the fields which we want to display in the form
             'item_name',
             'item_desc',
-            'item_price',
-            'item_image',
+            # 'item_price',
+            # 'item_image',
+            'image',
         ]
         
         # widgets = {

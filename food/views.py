@@ -22,9 +22,15 @@ def index(request):   # i.e. this function is going to accept a particular user 
 class IndexClassView(ListView): # inheriting from ListView
     model = Item
     template_name = 'food/index.html'
+    # item_list = Item.objects.all()
     context_object_name = 'item_list'
     def get_queryset(self):
         return super().get_queryset().order_by('-id')
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['image'] = Item.image.field.related_model
+    #     return context
     
     #To get the latest post first, In the above code, we override the get_queryset() method and use the order_by() method to sort the queryset in descending order based on the id field. By prefixing the field name with a hyphen (-), we indicate that we want to sort in descending order. Now, when the item_list is retrieved, it will be reversed based on the id field.
 
@@ -54,10 +60,13 @@ def item2(request):
     return HttpResponse('Item 2')
 
 def create_item(request):
-    form = ItemForm(request.POST or None)  # this is the form which we have created in forms.py, its an object of ItemForm class
+    form = ItemForm(request.POST or None, request.FILES or None)  # this is the form which we have created in forms.py, its an object of ItemForm class and request.FILES is used to upload the image
     
     if form.is_valid():
+        form.instance.user_name = request.user # here we are setting the user_name field of the form to the current user
         form.save()
+        # form.instance.user_name = request.user 
+        
         return redirect('food:index') # here index is the name of the url which we have created in urls.py of food app
     
     return render(request, 'food/item-form.html', {'form': form}) # this is the template which we have created in templates/food/item-form.html and context is the 'form' which we have created above
@@ -65,7 +74,7 @@ def create_item(request):
 
 class CreateItem(CreateView): # inheriting from CreateView
     model = Item
-    fields = ['item_name', 'item_desc', 'item_price', 'item_image']
+    fields = ['item_name', 'item_desc', 'item_price', 'item_image', 'image']
     template_name = 'food/item-form.html'
 
     def form_valid(self, form):
@@ -76,7 +85,8 @@ class CreateItem(CreateView): # inheriting from CreateView
 
 def update_item(request, id):
     item = Item.objects.get(id = id)
-    form = ItemForm(request.POST or None, instance = item) # here instance is the item which we want to update because this data should already be present in the form
+    form = ItemForm(request.POST or None, request.FILES or None, instance=item)
+ # here instance is the item which we want to update because this data should already be present in the form
     
     if form.is_valid():
         form.save()
