@@ -27,10 +27,9 @@ This is a dynamic Django-based project that allows users to securely post and ed
 4. Activate the virtual environment:
    - For Windows: `env\Scripts\activate`
    - For macOS/Linux: `source env/bin/activate`
-5. Install the project dependencies: `pip install -r requirements.txt`
-6. Apply database migrations: `python manage.py migrate`
-7. Start the development server: `python manage.py runserver`
-8. Access the project in your browser at `http://localhost:8000/`
+5. Apply database migrations: `python manage.py migrate`
+6. Start the development server: `python manage.py runserver`
+7. Access the project in your browser at `http://localhost:8000/`
 
 ## Usage
 
